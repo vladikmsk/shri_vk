@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Задание №2</title>
+    <link rel="stylesheet" media="screen" href="vk.css">
+    <link rel="stylesheet" media="print" href="print.css">
+</head>
+<body class="b-page">
+    <div class="b-head">
+        <a href="/pages/ready/index.html"><img class="b-head__logo" src="/blocks/b-head/__logo/b-head__logo.png" alt="Logo"></a><br/>
+    </div>
+    <div class="b-menu">
+        <ul>
+            <li class="b-menu__item b-menu__item_state_current"><a href="/pages/ready/index.html"><h2>Главная</h2></a></li>
+            <li class="b-menu__item"><a href="#"><h2>Задания</h2></a>
+		<ul>
+		   <li><a href="/pages/ready/task1.html">Задание 1</a></li>
+		   <li><a href="#">Задание 2</a></li> 
+		   <li><a href="/pages/ready/task3.html">Задание 3</a></li>
+		   <li><a href="/pages/ready/task5.html">Задание 5</a></li>
+		</ul>
+	    </li>
+            <li class="b-menu__item"><a href="#"><h2>Обо мне</h2></a>
+	    	<ul>
+		   <li><a href="/pages/ready/about-common.html">Общие вопросы</a></li>
+		   <li><a href="/pages/ready/about.html">Опыт разработки</a></li>	
+		</ul>
+            </li>
+        </ul>
+    </div>
+    <div class="b-main">
+        <h2>Задание №2.</h2>
+	<p>Опишите своими словами, что происходит в браузерах при клике на ссылку yandex.ru (полнота ответа – на ваше усмотрение).</p>
+	<p><b>Первый запуск</b><br/>
+	При обращении к адресу www.yandex.ru браузер отправляет запрос GET на сервер с указанием необходимых данных. В моем случае использовался firefox браузер и запрос выглядит так:
+	<textarea readonly="readonly" cols="87%" rows="5" class="b-main_code_listing">
+	GET / HTTP/1.1 Host: www.yandex.ru User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3 Accept-Encoding: gzip, deflate Connection: keep-alive 
+	</textarea>
+	<br/>
+	На что сервер отвечает передачей потока данных в режиме chunked: <br/>
+	<textarea readonly="readonly" cols="87%" rows="9" class="b-main_code_listing">
+	HTTP/1.1 200 Ok Server: nginx Date: Wed, 08 Aug 2012 06:36:37 GMT Content-Type: text/html; charset=UTF-8 Transfer-Encoding: chunked Connection: close Cache-Control: no-cache,no-store,max-age=0,must-revalidate Expires: Wed, 08 Aug 2012 06:36:38 GMT Last-Modified: Wed, 08 Aug 2012 06:36:38 GMT P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI" Set-Cookie: t=p; Domain=.yandex.ru; Path=/ Set-Cookie: yandexuid=8942746911344407798; Expires=Sat, 06-Aug-2022 06:36:37 GMT; Domain=.yandex.ru; Path=/ X-Frame-Options: DENY X-XRDS-Location: http://openid.yandex.ru/server_xrds/ Content-Encoding: gzip
+	</textarea></p>
+	<br/>
+	<p><b>Повторный запуск (пока жив cookie)</b><br/>
+	При повторном открытии страницы яндекса происходит практически то же самое, но лишь с отличием, что запрос идет с указанием cookie:<br/>
+	<textarea readonly="readonly" cols="87%" rows="8" class="b-main_code_listing">
+	GET / HTTP/1.1 Host: www.yandex.ru User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8 Accept-Language: ru-ru,ru;q=0.8,en-us;q=0.5,en;q=0.3 Accept-Encoding: gzip, deflate Connection: keep-alive Cookie: t=p; yandexuid=8942746911344407798; yabs-frequency=/4/0000000000000000/Tm805zWEN7ss0pNO3a40/; fuid01=502208f6354d8c83.JbcDh_HO8cXkwyuDxbcrZd5D8Y4IQCI5JB4i8UOE1UbSBIUxId4ruUyZtP8kTJ4bsrbI4jzPLsF9iSySX9yFTL5ZglfCf9tiMMuSGHGEKvd4KfVi19MD3Rn84j0tcyt0
+	</textarea>
+	<br/> 
+	На что получаем ответ:
+	<textarea readonly="readonly" cols="87%" rows="7" class="b-main_code_listing">
+	HTTP/1.1 200 Ok Server: nginx Date: Wed, 08 Aug 2012 06:38:00 GMT Content-Type: text/html; charset=UTF-8 Transfer-Encoding: chunked Connection: close Cache-Control: no-cache,no-store,max-age=0,must-revalidate Expires: Wed, 08 Aug 2012 06:38:01 GMT Last-Modified: Wed, 08 Aug 2012 06:38:01 GMT P3P: policyref="/w3c/p3p.xml", CP="NON DSP ADM DEV PSD IVDo OUR IND STP PHY PRE NAV UNI" Set-Cookie: t=p; Domain=.yandex.ru; Path=/ X-Frame-Options: DENY X-XRDS-Location: http://openid.yandex.ru/server_xrds/ Content-Encoding: gzip
+	</textarea>
+	</p>
+	<p>Далее рассмотрим только первый случай, когда страница открывает в первый раз.<br/>
+	Итого видим, что контент подгружается в виде архива, которая потом приводится в удобоваримый вид.<br/></p>
+	<p><b>Итого мы получили следующее:</b><br/>
+	Загрузились в папку для временных файлов браузера news.rss и index.rss. Подгрузился ico файл. А также xml файл opensearch.xml.<br/>
+	Создались куки с названиями guid, yandexuid, fuid01, t, yabs-sid и yabs-frequency. t и yabs-sid для сессии, остальные имеют довольно долгое время жизни.<br/>
+	Подгрузились картинки, тряпка css, сам HTML DOM, и куча скриптов javascript.<br/>
+	jquery подгрузился версии 1.6.3 минимальная версия jquery.min.js<br/>
+	Ещё один jquery версии 1.3.2 подгрузился в плавающий фрейм для подгрузки незавимисого документа jquery.crossframeajax.html</p>
+    </div>
+    <div class="b-foot">
+	<p>Для просмотра печатной версии войдите в Файл->Предварительный просмотр или нажмите на <a href="javascript:print()">Печатать</a></p>
+	<p>&copy; VK 2012</p>
+    </div>
+
+
+    <script src="http://yandex.st/jquery/1.5.2/jquery.js"></script>
+    <script src="vk.js"></script>
+</body>
+</html>

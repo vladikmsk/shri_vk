@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Задание №5</title>
+    <link rel="stylesheet" media="screen" href="vk.css">
+    <link rel="stylesheet" media="print" href="print.css">
+</head>
+<body class="b-page">
+    <div class="b-head">
+        <a href="/pages/ready/index.html"><img class="b-head__logo" src="/blocks/b-head/__logo/b-head__logo.png" alt="Logo"></a><br/>
+    </div>
+    <div class="b-menu">
+        <ul>
+            <li class="b-menu__item b-menu__item_state_current"><a href="/pages/ready/index.html"><h2>Главная</h2></a></li>
+            <li class="b-menu__item"><a href="#"><h2>Задания</h2></a>
+		<ul>
+		   <li><a href="/pages/ready/task1.html">Задание 1</a></li>
+		   <li><a href="/pages/ready/task2.html">Задание 2</a></li> 
+		   <li><a href="/pages/ready/task2.html">Задание 3</a></li>
+		   <li><a href="#">Задание 5</a></li>
+		</ul>
+	    </li>
+            <li class="b-menu__item"><a href="#"><h2>Обо мне</h2></a>
+	    	<ul>
+		   <li><a href="/pages/ready/about-common.html">Общие вопросы</a></li>
+		   <li><a href="/pages/ready/about.html">Опыт разработки</a></li>	
+		</ul>
+            </li>
+        </ul>
+    </div>
+    <div class="b-main">
+        <h2>Задание №5</h2>
+	<p><b>Bash</b></p>
+	<p>
+		Листинг на bash: <a href="#" id="txtBash-toggle">Показать/скрыть</a><br/>
+		<a href="/pages/ready/printargs.sh">Скачать</a> скрипт bash<br/>
+		<textarea readonly="readonly" cols="87%" rows="60" class="b-main_code_listing" id="txtBash">
+#!/usr/bin/env bash
+
+usage() {
+cat << EOF
+Usage: printargs.sh [OPTIONS] [ARGUMENTS]
+  Print the number of arguments.
+
+OPTIONS:
+  -h      print help message
+  -m MSG  custom message
+  -v verbose mode
+
+Examples:
+  printargs.sh a b c
+  printargs.sh -m 'Arguments count: ' a b c
+  printargs.sh -h
+  printargs.sh -v a b c
+  printargs.sh -m 'Arguments count: ' -v a b c
+
+EOF
+}
+
+
+
+while getopts “hm:v” OPTION # TODO: add '-v' option for verbose mode
+do
+    
+    case $OPTION in
+        h)
+            usage
+            exit 1
+	    ;;
+	m)
+            MESSAGE=$OPTARG
+	    ;;
+	v)  MSG="arguments are:  "
+	    ;;
+    esac
+done
+shift $((OPTIND-1))
+
+COUNT=0
+#MSG="Arguments are: "
+
+for ARG in $@; do
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if [[ "$MSG" != "" ]]; then
+    	MSG=$MSG' '$ARG
+    fi
+    let COUNT+=1
+done
+
+
+if [[ "$MESSAGE" != "" ]]; then
+    echo $MESSAGE
+fi
+
+echo 'arguments count: '$COUNT
+
+if [[ "$MSG" != "" ]]; then
+    echo $MSG
+fi
+
+			
+		</textarea>
+	</p>
+	<p><b>Python</b></p>
+	<p>Листинг на Питоне <a href="#" id="txtPy-toggle">Показать/скрыть</a>
+	<br/>
+	<a href="/pages/ready/printargs.py">Скачать</a> скрипт на Питоне</p>
+	<p>
+		<textarea readonly="readonly" class="b-main_code_listing" cols="87%" rows="30" id="txtPy">
+#!/usr/bin/env python
+import argparse
+
+parser = argparse.ArgumentParser(description='Print the number of arguments.')
+parser.add_argument('arguments', metavar='ARG', type=str, nargs='*', help='some arguments')
+parser.add_argument('-m', dest='message', default='', help='custom message')
+parser.add_argument('-v', '--verbose', help='verbose mode', action='store_true')
+# TODO: add '-v' option for verbose mode
+
+args = parser.parse_args()
+
+count = 0
+b = ''
+
+for a in args.arguments:
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    b = b + a + ' '	
+    count += 1
+
+if args.message != '':
+    print(args.message)
+
+
+print(count)
+
+if args.verbose:
+    print('Arguments are: ' + b)
+				
+		</textarea>
+	</p>
+
+	<p><b>Perl</b></p>
+	<p>Листинг на Perl <a href="#" id="txtPl-toggle">Показать/Скрыть</a><br/>
+	<a href="/pages/ready/printargs.pl">Скачать</a> скрипт на Perl</p>
+	<p>
+		<textarea readonly="readonly" class="b-main_code_listing" cols="87%" rows="60" id="txtPl">
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+
+my $help;
+my $message = '';
+my $verbose;
+
+@ARGV and GetOptions(
+    "h" => \$help,
+    "m:s" => \$message,
+    "v" => \$verbose,
+    # TODO: add '-v' option for verbose mode
+) or pod2usage(1);
+pod2usage(-verbose => 2, -exitval => 2) if $help;
+
+my $count = 0;
+
+my $argus = '';
+
+foreach(@ARGV) {
+    # TODO: add '-v' option for verbose mode
+    # and print each argument
+    if ($verbose) {
+    	$argus = $argus . @ARGV[$count] . ' ';
+    }
+
+    $count++;
+}
+
+
+
+
+if($message ne "") {
+    print($message . "\n");
+}
+
+print("Count: " . $count . "\n");
+
+print("Arguments are: " . $argus . "\n") if $verbose;
+
+__END__
+
+=head1 NAME
+
+    printargs.pl - Print the number of arguments.
+
+=head1 SYNOPSIS
+
+    printargs.pl [options] [arguments]
+
+=head1 OPTIONS
+
+    -h      Show help message.
+
+    -m MSG  Specify a custom message.
+
+    -v      Verbose mode.	
+
+
+=head1 EXAMPLE
+
+    printargs.pl a b c
+
+    printargs.pl -m 'Arguments count: ' a b c
+
+    printargs.pl -h
+   
+    printargs.pl -v
+			
+		</textarea>
+	</p>
+
+    </div>
+    <div class="b-foot">
+	<p>Для просмотра печатной версии войдите в Файл->Предварительный просмотр или нажмите на <a href="javascript:print()">Печатать</a></p>
+	<p>&copy; VK 2012</p>
+    </div>
+
+
+    <script src="http://yandex.st/jquery/1.5.2/jquery.js"></script>
+    <script src="vk.js"></script>
+</body>
+</html>

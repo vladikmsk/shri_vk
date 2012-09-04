@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Задание №1</title>
+    <link rel="stylesheet" media="screen" href="vk.css">
+    <link rel="stylesheet" media="print" href="print.css">
+</head>
+<body class="b-page">
+    <div class="b-head">
+        <a href="/pages/ready/index.html"><img class="b-head__logo" src="/blocks/b-head/__logo/b-head__logo.png" alt="Logo"></a><br/>
+    </div>
+    <div class="b-menu">
+        <ul>
+            <li class="b-menu__item b-menu__item_state_current"><a href="/pages/ready/index.html"><h2>Главная</h2></a></li>
+            <li class="b-menu__item"><a href="#"><h2>Задания</h2></a>
+		<ul>
+		   <li><a href="#">Задание 1</a></li>
+		   <li><a href="/pages/ready/task2.html">Задание 2</a></li> 
+		   <li><a href="/pages/ready/task3.html">Задание 3</a></li>
+		   <li><a href="/pages/ready/task5.html">Задание 5</a></li>
+		</ul>
+	    </li>
+            <li class="b-menu__item"><a href="#"><h2>Обо мне</h2></a>
+	    	<ul>
+		   <li><a href="/pages/ready/about-common.html">Общие вопросы</a></li>
+		   <li><a href="/pages/ready/about.html">Опыт разработки</a></li>	
+		</ul>
+            </li>
+        </ul>
+    </div>
+    <div class="b-main">
+        <h2>Задание №1</h2>
+	<p>Перечислите известные вам инструменты и приёмы для отладки кода в разных браузерах. </p>        
+	<p><b>Из увиденных дебагеров:</b><br/>
+	Internet Explorer - Developer Tools<br/>
+	Firefox - Firebug<br/>
+	Chrome - Developer Tools<br/></p>
+	
+	<p><b>Основные приемы:</b></br>
+	1. Установка breakpoint в отладочном коде, затем пошаговое выполнение. Возможно применять команды в console для интерактивности;<br/>
+	2. Использование своей функции с аргументом event и командой debugger в теле функции;<br/>
+	3. "Умная" установка breakpoint'ов за счет применения __defineSetter__ и __defineGetter__;<br/>
+	4. Для просмотра значений переменных в нужном месте кода можно использовать стандартные console.log(_var), alert(_var);</p>
+
+
+    </div>
+    <div class="b-foot">
+	<p>Для просмотра печатной версии войдите в Файл->Предварительный просмотр или нажмите на <a href="javascript:print()">Печатать</a></p>
+	<p>&copy; VK 2012</p>
+    </div>
+
+
+    <script src="http://yandex.st/jquery/1.5.2/jquery.js"></script>
+    <script src="vk.js"></script>
+</body>
+</html>
